@@ -14,6 +14,7 @@
 		F75CAC902D0708730070F45D /* Dex3.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F75CAC8E2D0708730070F45D /* Dex3.xcdatamodeld */; };
 		F75CAC922D07095B0070F45D /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75CAC912D07095B0070F45D /* Persistence.swift */; };
 		F78803F32D0975A600803983 /* TempPokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78803F22D0975A600803983 /* TempPokemon.swift */; };
+		F78803F52D09766800803983 /* FetchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78803F42D09766800803983 /* FetchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		F75CAC8F2D0708730070F45D /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		F75CAC912D07095B0070F45D /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		F78803F22D0975A600803983 /* TempPokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempPokemon.swift; sourceTree = "<group>"; };
+		F78803F42D09766800803983 /* FetchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				F75CAC822D0707F60070F45D /* ContentView.swift */,
 				F75CAC912D07095B0070F45D /* Persistence.swift */,
 				F78803F22D0975A600803983 /* TempPokemon.swift */,
+				F78803F42D09766800803983 /* FetchController.swift */,
 				F75CAC8E2D0708730070F45D /* Dex3.xcdatamodeld */,
 				F75CAC842D0707F70070F45D /* Assets.xcassets */,
 				F75CAC862D0707F70070F45D /* Preview Content */,
@@ -148,6 +151,7 @@
 			files = (
 				F75CAC832D0707F60070F45D /* ContentView.swift in Sources */,
 				F75CAC922D07095B0070F45D /* Persistence.swift in Sources */,
+				F78803F52D09766800803983 /* FetchController.swift in Sources */,
 				F78803F32D0975A600803983 /* TempPokemon.swift in Sources */,
 				F75CAC812D0707F60070F45D /* Dex3App.swift in Sources */,
 				F75CAC902D0708730070F45D /* Dex3.xcdatamodeld in Sources */,
