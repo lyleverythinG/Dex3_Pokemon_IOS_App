@@ -10,6 +10,7 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var pokemonVM = PokemonViewModel(controller: FetchController())
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Pokemon.id, ascending: true)],
@@ -17,30 +18,47 @@ struct ContentView: View {
     private var pokedex: FetchedResults<Pokemon>
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(pokedex) { pokemon in
-                    NavigationLink {
-                        Text("\(pokemon.id): \(pokemon.name!.capitalized)")
-                    } label: {
-                        Text("\(pokemon.id): \(pokemon.name!.capitalized)")
+        switch pokemonVM.status {
+        case .success:
+            NavigationStack {
+                List(pokedex) { pokemon in
+                    NavigationLink(value: pokemon){
+                        AsyncImage(url: pokemon.sprite) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 100, height: 100)
+                        
+                        Text(pokemon.name!.capitalized)
+                    }
+                }
+                .navigationTitle("Pokedex")
+                .navigationDestination(for: Pokemon.self, destination: { pokemon in
+                    PokemonDetail()
+                        .environmentObject(pokemon)
+                })
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
                     }
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+        case  .fetching: ProgressView("Loading Pokemon...")
+        case .failed (let error):
+            VStack {
+                Text("Failed to load Pokémon: \(error.localizedDescription)")
+                    .foregroundColor(.red)
             }
-            Text("Select an item")
+        case .notStarted:
+            ProgressView("Starting")
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
+#Preview {
+    ContentView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
-
