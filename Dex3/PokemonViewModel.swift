@@ -30,16 +30,20 @@ class PokemonViewModel: ObservableObject {
     
     private func getPokemon() async {
         status = .fetching
+        print("Fetching Pokémon data...")
         
         do {
             var pokedex = try await controller.fetchAllPokemon()
             pokedex.sort { $0.id < $1.id }
             
+            let viewContext = PersistenceController.shared.container.viewContext
+            
             for pokemon in pokedex {
-                let newPokemon = Pokemon(context: PersistenceController.shared.container.viewContext)
+                let newPokemon = Pokemon(context: viewContext)
                 newPokemon.id = Int16(pokemon.id)
                 newPokemon.name = pokemon.name
                 newPokemon.types = pokemon.types
+                newPokemon.organizeTypes()
                 newPokemon.hp = Int16(pokemon.hp)
                 newPokemon.attack = Int16(pokemon.attack)
                 newPokemon.defense = Int16(pokemon.defense)
@@ -49,12 +53,14 @@ class PokemonViewModel: ObservableObject {
                 newPokemon.sprite = pokemon.sprite
                 newPokemon.shiny = pokemon.shiny
                 newPokemon.favorite = false
-                
-                try PersistenceController.shared.container.viewContext.save()
             }
+            
+            try viewContext.save()
+            print("Data successfully saved to Core Data.")
             
             status = .success
         } catch {
+            print("Error fetching or saving Pokémon: \(error.localizedDescription)")
             status = .failed(error: error)
         }
     }
